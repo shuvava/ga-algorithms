@@ -21,3 +21,39 @@ func InsertionSort(data sort.Interface, lo, hi int) {
 		}
 	}
 }
+
+func merge[K int | byte](left, right []K) []K {
+	i, j, lenLeft, lenRight := 0, 0, len(left), len(right)
+	var result []K
+	for i < lenLeft && j < lenRight {
+		if left[i] <= right[j] {
+			result = append(result, left[i])
+			i++
+		} else {
+			result = append(result, right[j])
+			j++
+		}
+	}
+	result = append(result, left[i:]...)
+	result = append(result, right[j:]...)
+	return result
+}
+
+// MergeSort implementation of merge sort algorithm
+// Complexity: O(n*ln(n))
+//
+//	require double size of memory
+//	Algorithm:
+//	 1. Split array on a half (merge_sort) recursively till 1 elements array
+//	 2. merge two pre sorted sub array (merge) (on the deepest level array contents just one element)
+func MergeSort[K int | byte](data []K) []K {
+	n := len(data)
+	mid := n >> 1
+	if n > 1 {
+		left := MergeSort(data[:mid])
+		right := MergeSort(data[mid:])
+		return merge(left, right)
+	}
+
+	return data
+}

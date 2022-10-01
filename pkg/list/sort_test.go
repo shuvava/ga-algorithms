@@ -22,3 +22,19 @@ func FuzzInsertionSort(f *testing.F) {
 		}
 	})
 }
+
+func FuzzMergeSort(f *testing.F) {
+	f.Fuzz(func(t *testing.T, a []byte, target byte) {
+		aa := make([]int, len(a))
+		for i, v := range a {
+			aa[i] = int(v)
+		}
+		sort.Ints(aa)
+		result := list.MergeSort(a)
+		for i, v := range result {
+			if aa[i] != int(v) {
+				t.Errorf("for index %d value not match", i)
+			}
+		}
+	})
+}
