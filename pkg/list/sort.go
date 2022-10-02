@@ -57,3 +57,43 @@ func MergeSort[K int | byte](data []K) []K {
 
 	return data
 }
+
+// shiftDown implements the heap property on data[lo:hi].
+func shiftDown(data sort.Interface, lo, hi int) {
+	root := lo
+	for {
+		child := 2*root + 1
+		if child >= hi {
+			break
+		}
+		// get the largest child
+		if child+1 < hi && data.Less(child, child+1) {
+			child++
+		}
+		if !data.Less(root, child) {
+			return
+		}
+		data.Swap(root, child)
+		root = child
+	}
+}
+
+// HeapSort is implementation of the heap sort algorithm
+// after n iterations the Heap is empty
+//
+//	every iteration involves a swap and a max_heapify
+//	operation; hence it takes O(log n) time
+//
+// Complexity: O(n*ln(n))
+func HeapSort(data sort.Interface) {
+	lo, hi := 0, data.Len()
+	// Build heap with the greatest element at top.
+	for i := (hi - 1) / 2; i >= 0; i-- {
+		shiftDown(data, i, hi)
+	}
+	// Pop elements, largest first, into end of data.
+	for i := hi - 1; i >= 0; i-- {
+		data.Swap(lo, i)
+		shiftDown(data, lo, i)
+	}
+}
