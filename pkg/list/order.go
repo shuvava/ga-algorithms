@@ -27,7 +27,7 @@ func PopLast[K any](data []K) (K, []K) {
 // Complexity: O(N)
 func Delete[K any](data []K, i int) []K {
 	copy(data[i:], data[i+1:])
-	data[len(data)-1] = nil // or the zero value of T
+
 	return data[:len(data)-1]
 }
 
