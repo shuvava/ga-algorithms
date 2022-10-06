@@ -7,7 +7,7 @@ import (
 	"github.com/shuvava/go-algorithms/pkg/linkedlist"
 )
 
-func TestNewDoubleLinkedList(t *testing.T) {
+func TestDoubleLinkedList(t *testing.T) {
 	t.Run("New DoubleLinkedList should return 0 Len", func(t *testing.T) {
 		dll := linkedlist.NewDoubleLinkedList[int]()
 		l := dll.Len()
@@ -42,6 +42,13 @@ func TestNewDoubleLinkedList(t *testing.T) {
 		}
 		if i != len(a) {
 			t.Errorf("DoubleLinkedList itterator number of elements is not equal to the input %d != %d", i, len(a))
+		}
+	})
+	t.Run("New DoubleLinkedList should return false for HasNext", func(t *testing.T) {
+		dll := linkedlist.NewDoubleLinkedList[int]()
+		iter := dll.Iterator()
+		if iter.HasNext() {
+			t.Errorf("HasNext should return false")
 		}
 	})
 	t.Run("Del method of DoubleLinkedList should decrease size of the list", func(t *testing.T) {
