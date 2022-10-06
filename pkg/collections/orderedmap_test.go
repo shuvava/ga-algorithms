@@ -1,7 +1,9 @@
 package collections_test
 
 import (
+	"fmt"
 	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/shuvava/go-algorithms/pkg/collections"
@@ -39,4 +41,19 @@ func TestOrderedMap(t *testing.T) {
 			}
 		}
 	})
+}
+
+func ExampleNewOrderedMap() {
+	om := collections.NewOrderedMap[string, int]()
+	for _, v := range []int{1, 3, 5, 6} {
+		om.Set(strconv.FormatInt(int64(v), 10), v) // add new element to the OrderedMap
+	}
+	iter := om.Iterator() //get OrderedMap iterator
+	result := make([]string, 0)
+	for iter.HasNext() {
+		kv := iter.Next()
+		result = append(result, kv.Key)
+	}
+	fmt.Println(strings.Join(result[:], ", "))
+	// Output: 1, 3, 5, 6
 }

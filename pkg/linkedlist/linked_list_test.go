@@ -1,7 +1,10 @@
 package linkedlist_test
 
 import (
+	"fmt"
 	"github.com/shuvava/go-algorithms/pkg/list"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/shuvava/go-algorithms/pkg/linkedlist"
@@ -71,4 +74,19 @@ func TestDoubleLinkedList(t *testing.T) {
 			l--
 		}
 	})
+}
+
+func ExampleNewDoubleLinkedList() {
+	dll := linkedlist.NewDoubleLinkedList[int]()
+	for _, v := range []int{1, 3, 5, 6} {
+		dll.Add(v) // add a new val
+	}
+	iter := dll.Iterator() //get DoubleLinkedList iterator
+	result := make([]string, 0)
+	for iter.HasNext() {
+		v := iter.Next()
+		result = append(result, strconv.FormatInt(int64(v), 10))
+	}
+	fmt.Println(strings.Join(result[:], ", "))
+	// Output: 1, 3, 5, 6
 }
