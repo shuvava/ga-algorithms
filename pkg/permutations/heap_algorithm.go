@@ -24,7 +24,8 @@ func GetAllPermutations[T any](elements []T) list.Iterator[[]T] {
 		len:   l,
 		pos:   0,
 	}
-	state.next = state.nextPermutations()
+	state.next = make([]T, state.len)
+	copy(state.next, elements)
 	return state
 }
 
