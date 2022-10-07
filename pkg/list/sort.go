@@ -91,7 +91,7 @@ func HeapSort(data sort.Interface) {
 	for i := (hi - 1) / 2; i >= 0; i-- {
 		shiftDown(data, i, hi)
 	}
-	// Pop elements, largest first, into end of data.
+	// Pop elements, the largest first, into end of data.
 	for i := hi - 1; i >= 0; i-- {
 		data.Swap(lo, i)
 		shiftDown(data, lo, i)

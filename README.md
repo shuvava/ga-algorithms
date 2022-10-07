@@ -7,9 +7,20 @@ package [list](./pkg/list/doc.go) contains algorithm using list as main data str
 
 ## Linked List
 
-includes implementation of Linked List 
+includes implementation of Linked List
 
 ```go
+package main
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+
+	"github.com/shuvava/go-algorithms/pkg/linkedlist"
+)
+
+func main() {
 	dll := linkedlist.NewDoubleLinkedList[int]()
 	for _, v := range []int{1, 3, 5, 6} {
 		dll.Add(v) // add a new val
@@ -21,7 +32,8 @@ includes implementation of Linked List
 		result = append(result, strconv.FormatInt(int64(v), 10))
 	}
 	fmt.Println(strings.Join(result[:], ", "))
-	// Output: 1, 3, 5, 6
+}
+// Output: 1, 3, 5, 6
 ```
 
 ## Collections
@@ -29,6 +41,17 @@ includes implementation of Linked List
 ### Ordered Map
 
 ```go
+package main
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+
+	"github.com/shuvava/go-algorithms/pkg/collections"
+)
+
+func main() {
 	om := collections.NewOrderedMap[string, int]()
 	for _, v := range []int{1, 3, 5, 6} {
 		om.Set(strconv.FormatInt(int64(v), 10), v) // add new element to the OrderedMap
@@ -40,5 +63,6 @@ includes implementation of Linked List
 		result = append(result, kv.Key)
 	}
 	fmt.Println(strings.Join(result[:], ", "))
-	// Output: 1, 3, 5, 6
+}
+// Output: 1, 3, 5, 6
 ```
