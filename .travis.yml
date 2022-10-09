@@ -1,0 +1,18 @@
+
+# use the latest ubuntu environment (18.04) available on travis
+dist: bionic
+
+language: go
+go:
+  - 1.19.x
+# Don't email me the results of the test runs.
+notifications:
+  email: false
+
+before_install:
+  - go get -u golang.org/x/lint/golint
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/mattn/goveralls
+script:
+  - make coverage
+  - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN

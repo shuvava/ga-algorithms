@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
-
-set -o errexit
-set -o nounset
-set -o pipefail
+set -Eeuo pipefail
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 VERSION="${1}"
-
 if [[ -z "${VERSION}" ]]; then
   echo "Usage: push_tag.sh <version>"
   exit 1
 fi
-PREVIOUS_VERSION=$(git describe --tags --always --abbrev=0 --match='v[0-9]*.[0-9]*.[0-9]*' 2> /dev/null | sed 's/^.//')
-if [[ -z "${PREVIOUS_VERSION}" ]]; then
-  PREVIOUS_VERSION="0.0.0"
-fi
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+PREVIOUS_VERSION=${PREVIOUS_VERSION:-{$(git describe --tags --always --abbrev=0 --match='v[0-9]*.[0-9]*.[0-9]*' 2> /dev/null | sed 's/^.//')}
 
 sed -i "" "s/go-algorithms@v${PREVIOUS_VERSION}/go-algorithms@v${VERSION}/" "${SCRIPT_DIR}/../README.md"
 git add "${SCRIPT_DIR}/../README.md"
