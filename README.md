@@ -1,5 +1,14 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/shuvava/go-algorithms.svg)](https://pkg.go.dev/github.com/shuvava/go-algorithms)
+![Build Status](https://github.com/shuvava/go-algorithms/actions/workflows/makefile.yml/badge.svg)
+
 # Algorithms
 LetCode algorithms implementation on Golang
+
+## Installation
+
+```shell
+  go get github.com/shuvava/go-algorithms@v0.0.0
+```
 
 ## List Algorithms
 
