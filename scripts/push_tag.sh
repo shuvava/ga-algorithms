@@ -11,8 +11,9 @@ if [[ -z "${VERSION}" ]]; then
   exit 1
 fi
 PREVIOUS_VERSION=$(git describe --tags --always --abbrev=0 --match='v[0-9]*.[0-9]*.[0-9]*' 2> /dev/null | sed 's/^.//')
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-sed -i "" "s/go-algorithms@v${PREVIOUS_VERSION}/go-algorithms@v${VERSION}/" README.md
+sed -i "" "s/go-algorithms@v${PREVIOUS_VERSION}/go-algorithms@v${VERSION}/" "${SCRIPT_DIR}/../README.md"
 git add README.md
 git commit -m "bump version to v${VERSION}"
 git push
