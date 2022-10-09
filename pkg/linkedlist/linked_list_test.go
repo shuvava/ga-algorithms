@@ -74,6 +74,30 @@ func TestDoubleLinkedList(t *testing.T) {
 			l--
 		}
 	})
+	t.Run("Get should return items preserve order of adding", func(t *testing.T) {
+		a := []int{1, 3, 5, 6}
+		check := make([]*linkedlist.Item[int], 0)
+		dll := linkedlist.NewDoubleLinkedList[int]()
+		for _, k := range a {
+			item := dll.Add(k)
+			check = append(check, item)
+		}
+		l := len(a) - 1
+		first, found1 := dll.Get(0)
+		if !found1 || first == nil {
+			t.Errorf("the first item should be found")
+		}
+		if first.Value != a[0] {
+			t.Errorf("Get return incorrect the first item")
+		}
+		last, found2 := dll.Get(l)
+		if !found2 || last == nil {
+			t.Errorf("the first item should be found")
+		}
+		if last.Value != a[l] {
+			t.Errorf("Get return incorrect the last item")
+		}
+	})
 }
 
 func ExampleNewDoubleLinkedList() {

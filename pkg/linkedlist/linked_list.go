@@ -83,6 +83,21 @@ func (dll *DoubleLinkedList[V]) Len() int {
 	return n
 }
 
+// Get returns items by index, where index =0 is the first element added to the list
+// and index=len the last element added to the list
+func (dll *DoubleLinkedList[V]) Get(inx int) (result *Item[V], found bool) {
+	root, item := dll.root, dll.root
+	i := -1
+	for item.Next != root && i < inx {
+		i++
+		item = item.Next
+	}
+	if i == inx {
+		return item, true
+	}
+	return nil, false
+}
+
 // Next returns the next Item value of the DoubleLinkedList
 func (i *iterator[V]) Next() V {
 	i.current = i.current.Next

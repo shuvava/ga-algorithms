@@ -40,7 +40,7 @@ func (c *OrderedMap[K, V]) Get(key K) (value V, found bool) {
 func (c *OrderedMap[K, V]) Set(key K, value V) (val V, replaced bool) {
 	if item, present := c.items[key]; present {
 		oldValue := item.Value.Value
-		item.Value = Pair[K, V]{Key: key, Value: value}
+		item.Value.Value = value
 		return oldValue, true
 	}
 
@@ -51,11 +51,25 @@ func (c *OrderedMap[K, V]) Set(key K, value V) (val V, replaced bool) {
 }
 
 // Delete try to remove key from OrderedMap and return value of the key if it was present
-func (c *OrderedMap[K, V]) Delete(key K) (val V, replaced bool) {
+func (c *OrderedMap[K, V]) Delete(key K) (val V, found bool) {
 	if item, present := c.items[key]; present {
 		oldValue := item.Value.Value
 		c.link.Del(item)
 		return oldValue, true
+	}
+	return
+}
+
+// PopLast removes the last element (the first added element) from map and return its value
+func (c *OrderedMap[K, V]) PopLast() (val V, found bool) {
+	if c.Len() == 0 {
+		return
+	}
+	item, b := c.link.Get(0)
+	if b {
+		c.link.Del(item)
+		delete(c.items, item.Value.Key)
+		return item.Value.Value, true
 	}
 	return
 }

@@ -41,6 +41,29 @@ func TestOrderedMap(t *testing.T) {
 			}
 		}
 	})
+	t.Run("PopLast should return the oldest element in map", func(t *testing.T) {
+		a := []int{1, 3, 5, 6}
+		om := collections.NewOrderedMap[string, int]()
+		for _, k := range a {
+			om.Set(strconv.FormatInt(int64(k), 10), k)
+		}
+		for _, k := range a {
+			el, found := om.PopLast()
+			if !found {
+				t.Errorf("should found a element")
+			}
+			if el != k {
+				t.Errorf("PopLast shoul return latest element in array")
+			}
+		}
+	})
+	t.Run("PopLast should not found for empty map", func(t *testing.T) {
+		om := collections.NewOrderedMap[string, int]()
+		_, found := om.PopLast()
+		if found {
+			t.Errorf("PopLast should return false for empty map")
+		}
+	})
 }
 
 func ExampleNewOrderedMap() {
