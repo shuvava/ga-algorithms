@@ -7,7 +7,7 @@ LetCode algorithms implementation on Golang
 ## Installation
 
 ```shell
-  go get github.com/shuvava/go-algorithms@v0.0.0
+  go get github.com/shuvava/go-algorithms@v1.0.0
 ```
 
 ## List Algorithms
