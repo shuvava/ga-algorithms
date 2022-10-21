@@ -37,6 +37,7 @@ func TestGetBit(t *testing.T) {
 		{7, 1, true},
 		{7, 2, true},
 		{7, 3, false},
+		{8, 2, false},
 	}
 	for _, test := range testCases {
 		t.Run(fmt.Sprintf("GetBit should return %t for value %d and bit %d", test.expected, test.value, test.bitNum), func(t *testing.T) {
@@ -82,6 +83,63 @@ func TestClearBit(t *testing.T) {
 	for _, test := range testCases {
 		t.Run(fmt.Sprintf("GetBit should return %d for value %d and bit %d", test.expected, test.value, test.bitNum), func(t *testing.T) {
 			got := bitwise.ClearBit[int](test.value, test.bitNum)
+			if got != test.expected {
+				t.Errorf("expected %d got %d", test.expected, got)
+			}
+		})
+	}
+}
+
+func TestBitCount(t *testing.T) {
+	testCases := []struct {
+		num      int
+		expected int
+	}{
+		{1_255_279_365, 12},
+		{255, 8},
+		{1, 1},
+		{0, 0},
+	}
+	for _, test := range testCases {
+		t.Run(fmt.Sprintf("BitCount should return %d for %d", test.expected, test.num), func(t *testing.T) {
+			got := bitwise.BitCount(test.num)
+			if got != test.expected {
+				t.Errorf("expected %d got %d", test.expected, got)
+			}
+		})
+	}
+}
+
+func TestNumberOfTrailingZeros(t *testing.T) {
+	testCases := []struct {
+		num      int
+		expected int
+	}{
+		{381_344, 5},
+		{0, 64},
+	}
+	for _, test := range testCases {
+		t.Run(fmt.Sprintf("NumberOfTrailingZeros should return %d for %d", test.expected, test.num), func(t *testing.T) {
+			got := bitwise.NumberOfTrailingZeros(test.num)
+			if got != test.expected {
+				t.Errorf("expected %d got %d", test.expected, got)
+			}
+		})
+	}
+}
+
+func TestHighestOneBit(t *testing.T) {
+	testCases := []struct {
+		num      int
+		expected int
+	}{
+		{381_344, 262_144},
+		{262_144, 262_144},
+		{0, 0},
+	}
+	for _, test := range testCases {
+		t.Run(fmt.Sprintf("HighestOneBit should return %d for %d", test.expected, test.num), func(t *testing.T) {
+			got := bitwise.HighestOneBit(test.num)
 			if got != test.expected {
 				t.Errorf("expected %d got %d", test.expected, got)
 			}
