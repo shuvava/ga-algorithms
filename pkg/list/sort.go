@@ -97,3 +97,15 @@ func HeapSort(data sort.Interface) {
 		shiftDown(data, lo, i)
 	}
 }
+
+// HeapPop pops elements from slice with maintained order
+// Complexity: O(ln(N))
+func HeapPop(data []int, inx int) (int, []int) {
+	l := len(data)
+	if inx == l-1 {
+		return data[l-1], data[:l-1]
+	}
+	Swap(data, inx, l-1)
+	shiftDown(sort.IntSlice(data), inx, l-1)
+	return data[l-1], data[:l-1]
+}

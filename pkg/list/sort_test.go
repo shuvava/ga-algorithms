@@ -54,3 +54,14 @@ func FuzzHeapSort(f *testing.F) {
 		}
 	})
 }
+
+func TestHeapPop(t *testing.T) {
+	a := []int{8, 7, 6, 5, 4, 3, 2, 1, 0}
+	for i := 8; i >= 0; i-- {
+		got, aa := list.HeapPop(a, 0)
+		a = aa
+		if got != i {
+			t.Errorf("expected %d, got %d", i, got)
+		}
+	}
+}
